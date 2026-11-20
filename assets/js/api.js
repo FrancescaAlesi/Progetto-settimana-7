@@ -55,11 +55,11 @@ export class Giocatore {
     this.nome = data.strPlayer || "Sconosciuto";
     this.ruolo = data.strPosition || "";
     this.numero = data.strNumber || "-";
-    this.partite = stats.partite ?? 0;
-    this.gol = stats.gol ?? 0;
-    this.assist = stats.assist ?? 0;
-    this.gialli = stats.gialli ?? 0;
-    this.rossi = stats.rossi ?? 0;
+    this.partite = stats.partite ?? "-";
+    this.gol = stats.gol ?? "-";
+    this.assist = stats.assist ?? "-";
+    this.gialli = stats.gialli ?? "-";
+    this.rossi = stats.rossi ?? "-";
   }
 }
 
@@ -89,7 +89,7 @@ export async function fetchRosaSquadra(squadra) {
   let listaRaw = dataById && dataById.player ? dataById.player : [];
 
   if (listaRaw.length === 0) {
-    await new Promise((resolve) => setTimeout(resolve, 400));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     const urlByName = new URL(`${API_BASE}/searchplayers.php`);
     urlByName.searchParams.set("t", squadra.strTeam);
 
@@ -103,18 +103,16 @@ export async function fetchRosaSquadra(squadra) {
   const rosa = [];
   for (let i = 0; i < listaRaw.length; i++) {
     const p = listaRaw[i];
-    let stats = { partite: 0, gol: 0, assist: 0, gialli: 0, rossi: 0 };
+    let stats = { partite: "-", gol: "-", assist: "-", gialli: "-", rossi: "-" };
 
     try {
       stats = await fetchStatsSingoloGiocatore(p.idPlayer);
     } catch {
-      
     }
-
     rosa.push(new Giocatore(p, stats));
 
     if (i < listaRaw.length - 1) {
-      await new Promise((resolve) => setTimeout(resolve, 400));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
     }
   }
 
@@ -143,8 +141,8 @@ export async function fetchStatsSingoloGiocatore(idPlayer) {
   const sommaStat = (nomi) => {
     let totale = 0;
     for (let i = 0; i < stats.length; i++) {
-      if (nomi.includes(stats[i].strStat)) {
-        totale += Number(stats[i].intStat) || 0;
+      if (nomi.includes(stats[i].strStatistic)) {
+        totale += Number(stats[i].strValue) || 0;
       }
     }
     return totale;

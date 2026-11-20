@@ -251,7 +251,7 @@ searchInput.addEventListener("input", () => {
 
   debounceTimer = setTimeout(() => {
     cercaSquadre(query);
-  }, 400);
+  }, 2000);
 });
 
 searchForm.addEventListener("submit", (e) => {

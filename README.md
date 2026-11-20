@@ -18,7 +18,26 @@ Oltre alle funzionalità base di ricerca e salvataggio, l'applicazione include q
 1. **Modale Dettagli Squadra al click sulla card**: cliccando su qualsiasi card (sia nei risultati di ricerca che tra i preferiti) si apre una finestra modale suddivisa in due colonne con i **Prossimi eventi** in programma e gli **Ultimi risultati** disputati dalla squadra selezionata.
 2. **Filtri per Sport dedicati ai Preferiti**: i pulsanti nella sezione preferiti (**🏆 Tutti**, **⚽ Calcio**, **🏀 Basket**, **🏈 Football**) filtrano dinamicamente esclusivamente le squadre salvate dall'utente tra i preferiti (e di conseguenza aggiornano anche i relativi prossimi appuntamenti).
 3. **Modale Dettagli Evento al click sui prossimi appuntamenti**: cliccando su una partita nell'elenco dei prossimi appuntamenti dei preferiti (o dentro la modale della squadra) si apre una modale dedicata con tutte le informazioni dell'incontro: squadre in campo, data formattata (`gg/mm/aaaa`), orario, competizione, stagione, stadio/luogo, stato del match, eventuale punteggio e immagine di anteprima.
-4. **Modale Rosa e Statistiche Giocatori al click sul bottone "Rosa"**: facendo click sul pulsante **"Rosa"** si apre una modale dedicata che mostra l'elenco completo dei giocatori della squadra con le relative statistiche stagionali: **partite giocate, gol, assist, cartellini gialli e cartellini rossi**.
+4. Modale Rosa e Statistiche Giocatori
+
+Facendo click sul pulsante **"Rosa"** si apre una modale dedicata che mostra l'elenco completo dei giocatori della squadra con le relative statistiche stagionali:
+
+* **Partite giocate**
+* **Gol**
+* **Assist**
+* **Cartellini gialli**
+* **Cartellini rossi**
+
+#### Legenda dei valori mostrati
+
+I dati presenti nella tabella seguono questa logica di lettura in base alla risposta dell'API:
+
+| Valore | Significato |
+| :--- | :--- |
+| **`0`** | Il dato è valido ed effettivamente pari a zero. |
+| **`N/D`** | La statistica non è disponibile o non è presente nell'API. |
+| **`-`** | Si è verificato un errore dell'API durante il recupero del dato. |
+
 
 ## Tecnologie utilizzate
 
