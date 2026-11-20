@@ -1,0 +1,111 @@
+body {
+  color: #1e293b;
+  background-color: #f4f6f9;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.site-header {
+  background-color: #143264;
+}
+.site-header #searcht-form {
+  max-width: 540px;
+}
+.site-header #searcht-form .from-control {
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  padding: 0.65rem 1rem;
+}
+.site-header #searcht-form .btn {
+  color: #143264;
+  border-radius: 6px;
+  font-size: 1rem;
+  padding: 0.65rem 1rem;
+  transition: background-color 0.2s ease;
+}
+.site-header #searcht-form .btn:hover {
+  background-color: #e2e8f0;
+}
+
+.team-card {
+  border: 1px solid #e5e9f0;
+  border-radius: 12px;
+  background: #ffffff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+.team-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(20, 50, 100, 0.08) !important;
+}
+.team-card .team-logo {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+  margin: 0 auto 1rem auto;
+}
+.team-card .team-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #0f172a;
+  margin-bottom: 0.25rem;
+}
+.team-card .team-meta {
+  font-size: 0.85rem;
+  color: #6c757d;
+  line-height: 1.4;
+}
+
+.dettagli-box {
+  border: 1px solid #e5e9f0;
+  margin-top: 2rem;
+}
+.dettagli-box .dettagli-team-title {
+  color: #143264;
+  font-weight: 700;
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+}
+.dettagli-box .sezione-evento-titolo {
+  color: #0f172a;
+  border-bottom: 2px solid #143264;
+  padding-bottom: 0.6;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+.dettagli-box .evento-item {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e9f0;
+}
+.dettagli-box .evento-item.clickable-event {
+  cursor: pointer;
+  border-radius: 6px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  transition: background-color 0.15s ease;
+}
+.dettagli-box .evento-item.clickable-event:hover {
+  background-color: #f8fafc;
+}
+.dettagli-box .evento-item .evento-data {
+  font-size: 0.8rem;
+  color: #6c757d;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.dettagli-box .evento-item .evento-match {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #0f172a;
+}
+.dettagli-box .evento-item .badge-score {
+  background-color: #198754;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.8rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+}
+
+/*# sourceMappingURL=style.css.map */
