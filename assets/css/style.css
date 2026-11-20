@@ -10,23 +10,23 @@ body {
   top: 0;
   z-index: 1020;
 }
-.site-header #searcht-form {
+.site-header #search-form {
   max-width: 540px;
 }
-.site-header #searcht-form .from-control {
+.site-header #search-form .form-control {
   border: none;
   border-radius: 6px;
   font-size: 1rem;
   padding: 0.65rem 1rem;
 }
-.site-header #searcht-form .btn {
+.site-header #search-form .btn {
   color: #143264;
   border-radius: 6px;
   font-size: 1rem;
   padding: 0.65rem 1rem;
   transition: background-color 0.2s ease;
 }
-.site-header #searcht-form .btn:hover {
+.site-header #search-form .btn:hover {
   background-color: #e2e8f0;
 }
 
@@ -72,7 +72,7 @@ body {
 .dettagli-box .sezione-evento-titolo {
   color: #0f172a;
   border-bottom: 2px solid #143264;
-  padding-bottom: 0.6;
+  padding-bottom: 0.6rem;
   margin-bottom: 1rem;
   font-size: 1rem;
 }
@@ -109,6 +109,48 @@ body {
   padding: 0.25rem 0.6rem;
   border-radius: 4px;
   margin-left: 0.5rem;
+}
+
+.evento-modal-thumb {
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.sport-filter-bar {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  background-color: #ffffff;
+  padding: 0.35rem;
+  border-radius: 999px;
+  border: 1px solid #e5e9f0;
+  box-shadow: 0 2px 8px rgba(20, 50, 100, 0.05);
+}
+.sport-filter-bar .sport-filter-btn {
+  border: none;
+  background: transparent;
+  color: #6c757d;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+.sport-filter-bar .sport-filter-btn:hover:not(.active) {
+  background-color: #eef2f8;
+  color: #143264;
+}
+.sport-filter-bar .sport-filter-btn.active {
+  background-color: #143264;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(20, 50, 100, 0.25);
+}
+.sport-filter-bar .sport-filter-btn:active {
+  transform: scale(0.97);
 }
 
 /*# sourceMappingURL=style.css.map */

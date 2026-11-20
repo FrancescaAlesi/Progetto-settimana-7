@@ -26,11 +26,25 @@
 
             <!--SEZIONE RISULTATI GENERATA DA JavaScript-->
             <section id="preferite-section" class="mb-5">
-                <h2 class="h5 fw-bold mb-3">⭐ Le tue squadre preferite</h2>
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                    <h2 class="h5 fw-bold mb-3">⭐ Le tue squadre preferite</h2>
+                    <!--FILTRO PER SPORT-->
+                    <div id="sport-filters" class="sport-filter-bar" role="group" aria-label="Filtra per sport">
+                        <button type="button" class="sport-filter-btn active" data-sport="ALL">🏆 Tutti</button>
+                        <button type="button" class="sport-filter-btn" data-sport="Soccer">⚽ Calcio</button>
+                        <button type="button" class="sport-filter-btn" data-sport="Basketball">🏀 Basket</button>
+                        <button type="button" class="sport-filter-btn" data-sport="American Football">🏈 Football</button>
+                    </div>
+                </div>    
                 <p id="preferite-empty" class="text-muted fst-italic mb-0">
                     Non hai ancora salvato nessuna squadra. Cercane una qui sopra e aggiungila ai preferiti.
                 </p>
+                <!--BOX PROSSIMI APPUNTAMENTI-->
                 <div id="preferite-list" class="row g-4"></div>
+                <div id="preferite-eventi-box" class="dettagli-box bg-white rounded-4 shadow-sm p-4 mt-4 d-none">
+                    <h3 class="h6 fw-bold pb-2 mb-3 sezione-evento-titolo">📅 I tuoi prossimi appuntamenti (Preferiti)</h3>
+                    <ul id="preferite-eventi-list" class="list-unstyled mb-0"></ul>
+                </div>
             </section>
 
             <!--SEZIONE RISULTATI GENERATA DA JavaScript-->
@@ -40,23 +54,47 @@
                 <div id="feedback-container"></div>
                 <div id="risultati-grid" class="row g-4"></div>
             </section>
+        </main>
 
-            <!--SEZIONE DETTAGLI CHE SPUNTA AL CLICK DELLA CARD CERCATA-->
-            <section id="dettagli-section" class="dettagli-box bg-white rounded-4 shadow-sm p-4 p-md-5 d-none">
-                <h2 id="dettagli-team-name" class="dettagli-team-title"></h2>
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <h3 class="h6 fw-bold pb-2 md-3 sezione-evento-titolo">Prossimi eventi</h3>
-                        <ul id="prossimi-eventi-list" class="list-unstyled mb-0"></ul>
+       <!--MODALE DETTAGLI SQUADRA (AL CLICK SULLA CARD)-->
+        <div class="modal fade" id="dettagliSquadraModal" tabindex="-1" aria-labelledby="dettagli-team-name" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content dettagli-box rounded-4 border-0 shadow mt-0">
+                    <div class="modal-header border-bottom-0 px-4 pt-4 pb-2">
+                        <h2 id="dettagli-team-name" class="modal-title dettagli-team-title mb-0"></h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
                     </div>
-                    <div class="col-md-6">
-                        <h3 class="h6 fw-bold pb-2 md-3 sezione-evento-titolo">Ultimi risultati</h3>
-                        <ul id="ultimi-risultati-list" class="list-unstyled mb-0"></ul>
+                    <div class="modal-body px-4 pb-4">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <h3 class="h6 fw-bold pb-2 mb-3 sezione-evento-titolo">Prossimi eventi</h3>
+                                <ul id="prossimi-eventi-list" class="list-unstyled mb-0"></ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h3 class="h6 fw-bold pb-2 mb-3 sezione-evento-titolo">Ultimi risultati</h3>
+                                <ul id="ultimi-risultati-list" class="list-unstyled mb-0"></ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </div>
 
-        </main>
+        <!--MODALE DETTAGLI EVENTO-->
+        <div class="modal fade" id="eventoModal" tabindex="-1" aria-labelledby="eventoModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content rounded-4 border-0 shadow">
+                    <div class="modal-header border-bottom-0 pb-0">
+                        <h3 class="modal-title h5 fw-bold" id="eventoModalLabel">Dettagli partita</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+                    </div>
+                    <div class="modal-body" id="evento-modal-body"></div>
+                    <div class="modal-footer border-top-0 pt-0">
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Chiudi</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.min.js" integrity="sha384-89aa4glufciPv46aKltztWQEmk+Tu9W2RhzXr6VcnUUEub7F8+06RcL2RYLCOHUq" crossorigin="anonymous"></script>

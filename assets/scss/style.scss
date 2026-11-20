@@ -22,9 +22,9 @@ body {
   position: sticky;
   top: 0;
   z-index: 1020;
-  #searcht-form {
+  #search-form {
     max-width: 540px;
-    .from-control {
+    .form-control {
       border: none;
       border-radius: 6px;
       font-size: 1rem;
@@ -88,7 +88,7 @@ body {
   .sezione-evento-titolo {
     color: #0f172a;
     border-bottom: 2px solid $primary-navy;
-    padding-bottom: 0.6;
+    padding-bottom: 0.6rem;
     margin-bottom: 1rem;
     font-size: 1rem;
   }
@@ -124,6 +124,56 @@ body {
       padding: 0.25rem 0.6rem;
       border-radius: 4px;
       margin-left: 0.5rem;
+    }
+  }
+}
+
+.evento-modal-thumb {
+    width: 100%;
+    max-height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+//FILTRI PER SPORT
+.sport-filter-bar {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  background-color: #ffffff;
+  padding: 0.35rem;
+  border-radius: 999px;
+  border: 1px solid $border-light;
+  box-shadow: 0 2px 8px rgba(20, 50, 100, 0.05);
+
+  .sport-filter-btn {
+    border: none;
+    background: transparent;
+    color: $text-muted-custon;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      transform 0.15s ease;
+
+    &:hover:not(.active) {
+      background-color: #eef2f8;
+      color: $primary-navy;
+    }
+
+    &.active {
+      background-color: $primary-navy;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(20, 50, 100, 0.25);
+    }
+
+    &:active {
+      transform: scale(0.97);
     }
   }
 }
