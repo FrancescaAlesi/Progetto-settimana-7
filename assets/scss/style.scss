@@ -177,3 +177,19 @@ body {
     }
   }
 }
+
+#rosaSquadraModal {
+  .modal-title {
+    color: $primary-navy;
+  }
+  thead th {
+    background-color: $primary-navy;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border-bottom: none;
+  }
+  tbody td {
+    font-size: 0.9rem;
+  }
+}

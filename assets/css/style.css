@@ -153,4 +153,18 @@ body {
   transform: scale(0.97);
 }
 
+#rosaSquadraModal .modal-title {
+  color: #143264;
+}
+#rosaSquadraModal thead th {
+  background-color: #143264;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-bottom: none;
+}
+#rosaSquadraModal tbody td {
+  font-size: 0.9rem;
+}
+
 /*# sourceMappingURL=style.css.map */

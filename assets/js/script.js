@@ -3,6 +3,8 @@ import {
   fetchSquadreByNome,
   fetchEventiSquadra,
   fetchProssimiEventiPreferite,
+  fetchRosaSquadra,
+  fetchStatsSingoloGiocatore,
 } from "./api.js";
 import {
   mostraSpinner,
@@ -11,6 +13,7 @@ import {
   renderCardSquadre,
   renderListaEventi,
   mostraModalEvento,
+  mostraModalRosa,
 } from "./ui.js";
 
 const STORAGE_KEY = "sportshub_preferiti";
@@ -49,6 +52,37 @@ const cardCallbacks = {
   },
   onSelectSquadra: (idTeam, nomeSquadra) => {
     caricaDettagli(idTeam, nomeSquadra);
+  },
+  onApriRosa: async (squadra) => {
+    const modalEl = document.getElementById("rosaSquadraModal");
+    const titleEl = document.getElementById("rosaModalLabel");
+    const tbody = document.getElementById("rosa-table-body");
+
+    titleEl.textContent = `Rosa — ${squadra.strTeam}`;
+
+    const trLoading = document.createElement("tr");
+    const tdLoading = document.createElement("td");
+    tdLoading.colSpan = 6;
+    tdLoading.className = "py-4 text-muted";
+    tdLoading.textContent = "Caricamento rosa...";
+    trLoading.appendChild(tdLoading);
+    tbody.replaceChildren(trLoading);
+
+    window.bootstrap.Modal.getOrCreateInstance(modalEl).show();
+
+    try {
+      const rosa = await fetchRosaSquadra(squadra);
+      mostraModalRosa(squadra.strTeam, rosa, fetchStatsSingoloGiocatore);
+    } catch (error) {
+      console.error("Errore reale Rosa:", error);
+      const tr = document.createElement("tr");
+      const td = document.createElement("td");
+      td.colSpan = 6;
+      td.className = "text-danger py-3";
+      td.textContent = `Errore: ${error.message}`;
+      tr.appendChild(td);
+      tbody.replaceChildren(tr);
+    }
   },
 };
 

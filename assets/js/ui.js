@@ -61,12 +61,26 @@ export function creaCardSquadra(squadra, isPreferitaCard, callbacks) {
   btn.type = "button";
 
   if (isPreferitaCard) {
+    const btnGroup = document.createElement("div");
+    btnGroup.className = "d-flex gap-2 w-100";
+
+    const btnRosa = document.createElement("button");
+    btnRosa.type = "button";
+    btnRosa.className = "btn btn-outline-primary btn-sm flex-fill";
+    btnRosa.textContent = "👥 Rosa";
+    btnRosa.addEventListener("click", (e) => {
+      e.stopPropagation();
+      callbacks.onApriRosa(squadra);
+    });
+
     btn.className = "btn btn-outline-danger btn-sm w-100";
     btn.textContent = "🗑️Rimuovi";
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
       callbacks.onRimuovi(squadra.idTeam);
     });
+    btnGroup.append(btnRosa, btn);
+    card.append(bodyTop, btnGroup);
   } else {
     const giaPreferita = callbacks.isPreferita(squadra.idTeam);
     btn.className = giaPreferita
@@ -80,8 +94,8 @@ export function creaCardSquadra(squadra, isPreferitaCard, callbacks) {
       e.stopPropagation();
       callbacks.onAggiungi(squadra);
     });
+    card.append(bodyTop, btn);
   }
-  card.append(bodyTop, btn);
   col.appendChild(card);
   return col;
 }
@@ -231,4 +245,45 @@ export function mostraModalEvento(evento) {
 
   const modalInstance = window.bootstrap.Modal.getOrCreateInstance(modalEl);
   modalInstance.show();
+}
+
+export function mostraModalRosa(nomeSquadra, giocatori) {
+  const modalEl = document.getElementById("rosaSquadraModal");
+  const titleEl = document.getElementById("rosaModalLabel");
+  const tbody = document.getElementById("rosa-table-body");
+
+  titleEl.textContent = `Rosa — ${nomeSquadra}`;
+
+  if (!giocatori || giocatori.length === 0) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.colSpan = 6;
+    td.className = "text-muted fst-italic py-3";
+    td.textContent = "Nessun giocatore restituito dall'API per questa squadra.";
+    tr.appendChild(td);
+    tbody.replaceChildren(tr);
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+
+  giocatori.forEach((g) => {
+    const tr = document.createElement("tr");
+
+    const tdNome = document.createElement("td");
+    tdNome.className = "text-start fw-semibold";
+    tdNome.textContent = g.nome;
+    tr.appendChild(tdNome);
+
+    [g.partite, g.gol, g.assist, g.gialli, g.rossi].forEach((val) => {
+      const td = document.createElement("td");
+      td.textContent = val;
+      tr.appendChild(td);
+    });
+
+    fragment.appendChild(tr);
+  });
+
+  tbody.replaceChildren(fragment);
+  window.bootstrap.Modal.getOrCreateInstance(modalEl).show();
 }

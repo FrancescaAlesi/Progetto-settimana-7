@@ -49,6 +49,115 @@ export class Evento {
   }
 }
 
+export class Giocatore {
+  constructor(data, stats = {}) {
+    this.idPlayer = data.idPlayer;
+    this.nome = data.strPlayer || "Sconosciuto";
+    this.ruolo = data.strPosition || "";
+    this.numero = data.strNumber || "-";
+    this.partite = stats.partite ?? 0;
+    this.gol = stats.gol ?? 0;
+    this.assist = stats.assist ?? 0;
+    this.gialli = stats.gialli ?? 0;
+    this.rossi = stats.rossi ?? 0;
+  }
+}
+
+const cacheRosaSquadra = new Map();
+
+async function parseJsonSicuro(response) {
+  if (!response.ok) {
+    throw new Error(`Errore HTTP ${response.status}`);
+  }
+  const text = await response.text();
+  if (!text || text.trim() === "") {
+    return null;
+  }
+  return JSON.parse(text);
+}
+
+export async function fetchRosaSquadra(squadra) {
+  if (cacheRosaSquadra.has(squadra.idTeam)) {
+    return cacheRosaSquadra.get(squadra.idTeam);
+  }
+
+  const urlById = new URL(`${API_BASE}/lookup_all_players.php`);
+  urlById.searchParams.set("id", squadra.idTeam);
+
+  const resById = await fetch(urlById);
+  const dataById = await parseJsonSicuro(resById);
+  let listaRaw = dataById && dataById.player ? dataById.player : [];
+
+  if (listaRaw.length === 0) {
+    await new Promise((resolve) => setTimeout(resolve, 400));
+    const urlByName = new URL(`${API_BASE}/searchplayers.php`);
+    urlByName.searchParams.set("t", squadra.strTeam);
+
+    const resByName = await fetch(urlByName);
+    const dataByName = await parseJsonSicuro(resByName);
+    const trovati = dataByName && dataByName.player ? dataByName.player : [];
+    const filtrati = trovati.filter((p) => p.idTeam === squadra.idTeam);
+    listaRaw = filtrati.length > 0 ? filtrati : trovati;
+  }
+
+  const rosa = [];
+  for (let i = 0; i < listaRaw.length; i++) {
+    const p = listaRaw[i];
+    let stats = { partite: 0, gol: 0, assist: 0, gialli: 0, rossi: 0 };
+
+    try {
+      stats = await fetchStatsSingoloGiocatore(p.idPlayer);
+    } catch {
+      
+    }
+
+    rosa.push(new Giocatore(p, stats));
+
+    if (i < listaRaw.length - 1) {
+      await new Promise((resolve) => setTimeout(resolve, 400));
+    }
+  }
+
+  cacheRosaSquadra.set(squadra.idTeam, rosa);
+  return rosa;
+}
+
+export async function fetchStatsSingoloGiocatore(idPlayer) {
+  const url = new URL(`${API_BASE}/lookupplayerstats.php`);
+  url.searchParams.set("id", idPlayer);
+
+  const response = await fetch(url);
+  const data = await parseJsonSicuro(response);
+  const stats = data && data.playerstats ? data.playerstats : [];
+
+  if (stats.length === 0) {
+    return {
+      partite: "N/D",
+      gol: "N/D",
+      assist: "N/D",
+      gialli: "N/D",
+      rossi: "N/D",
+    };
+  }
+
+  const sommaStat = (nomi) => {
+    let totale = 0;
+    for (let i = 0; i < stats.length; i++) {
+      if (nomi.includes(stats[i].strStat)) {
+        totale += Number(stats[i].intStat) || 0;
+      }
+    }
+    return totale;
+  };
+
+  return {
+    partite: sommaStat(["Appearances", "Games Played", "Caps"]),
+    gol: sommaStat(["Goals"]),
+    assist: sommaStat(["Assists"]),
+    gialli: sommaStat(["Yellow Cards"]),
+    rossi: sommaStat(["Red Cards"]),
+  };
+}
 export async function fetchSquadreByNome(query, signal) {
   const url = new URL(`${API_BASE}/searchteams.php`);
   url.searchParams.set("t", query);
@@ -98,7 +207,7 @@ export async function fetchProssimiEventiPreferite(preferiti) {
   if (!preferiti || preferiti.length === 0) return [];
 
   const richieste = preferiti.map(async (squadra, index) => {
-    await new Promise((resolve) => setTimeout(resolve, index * 500));
+    await new Promise((resolve) => setTimeout(resolve, index * 1200));
     const url = new URL(`${API_BASE}/eventsnext.php`);
     url.searchParams.set("id", squadra.idTeam);
     const res = await fetch(url);
