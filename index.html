@@ -25,10 +25,20 @@
         <main class="container pb-5">
 
             <!--SEZIONE RISULTATI GENERATA DA JavaScript-->
+            <section id="preferite-section" class="mb-5">
+                <h2 class="h5 fw-bold mb-3">⭐ Le tue squadre preferite</h2>
+                <p id="preferite-empty" class="text-muted fst-italic mb-0">
+                    Non hai ancora salvato nessuna squadra. Cercane una qui sopra e aggiungila ai preferiti.
+                </p>
+                <div id="preferite-list" class="row g-4"></div>
+            </section>
+
+            <!--SEZIONE RISULTATI GENERATA DA JavaScript-->
             <section id="risultati-section">
                 <h2 id="risultati-titolo" class="h5 fw-bold mb-3">Squadre trovate</h2>
+                <p id="search-empty" class="text-muted fst-italic">Inizia cercando una squadra qui sopra.</p>
                 <div id="feedback-container"></div>
-                <div id="risultati-grid" class="row row-cols-1 g-4"></div>
+                <div id="risultati-grid" class="row g-4"></div>
             </section>
 
             <!--SEZIONE DETTAGLI CHE SPUNTA AL CLICK DELLA CARD CERCATA-->

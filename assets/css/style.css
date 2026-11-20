@@ -6,6 +6,9 @@ body {
 
 .site-header {
   background-color: #143264;
+  position: sticky;
+  top: 0;
+  z-index: 1020;
 }
 .site-header #searcht-form {
   max-width: 540px;

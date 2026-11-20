@@ -19,6 +19,9 @@ body {
 //HEADER + FROM + BOTTONE
 .site-header {
   background-color: $primary-navy;
+  position: sticky;
+  top: 0;
+  z-index: 1020;
   #searcht-form {
     max-width: 540px;
     .from-control {
